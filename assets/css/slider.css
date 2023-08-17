@@ -1,0 +1,40 @@
+
+  .slider {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+ /* Center vertically */
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .slider-content {
+    display: flex;
+    animation: slide 10s infinite linear;
+  }
+  
+  .slider-content img {
+    width: 100%;
+    height: 40vh;
+    object-fit: contain;
+    margin: 0 auto; /* Center horizontally */
+  }
+  
+  @keyframes slide {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    
+    25% {
+      transform: translateX(0);
+    }
+    
+    30%, 55% {
+      transform: translateX(-100%);
+    }
+    
+    60%, 85% {
+      transform: translateX(-200%);
+    }
+  }
+  
