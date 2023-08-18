@@ -1,26 +1,113 @@
 <html lang="en">
-  <body>
+
+<body>
     <h1 id="accountaddress">...</h1>
     <button id="signinbutton" onclick="xumm.authorize()">Login</button>
     <button id="logoutbutton" onclick="xumm.logout()">Logout</button>
-        
+
+    <button onclick="xumm.openSignRequest()">Sign</button>
+
+
+    <pre id="payload">...</pre>
+
+
+
+    <div id="qr">
+        <img id="imageElement" src="" alt="">
+    </div>
+
+    <!-- 
+    <iframe 
+    src="" 
+    width="100%" 
+    height="600" 
+    style="border: none;"
+    scrolling="auto"
+
+    id="website"
+></iframe> -->
+
+
     <script src="https://xumm.app/assets/cdn/xumm.min.js"></script>
     <script>
-      var xumm = new Xumm('018f4fbf-7496-4cb0-a6ed-c43a069b4a16')
-      
-      xumm.on("ready", () => console.log("Ready (e.g. hide loading state of page)"))
-      
-      // We rely on promises in the `success` event: fired again if a user
-      // logs out and logs back in again (resets all promises)
-      xumm.on("success", async () => {
-        xumm.user.account.then(account => {
-          document.getElementById('accountaddress').innerText = account
-        })
-      })
+        var xumm = new Xumm('018f4fbf-7496-4cb0-a6ed-c43a069b4a16')
 
-      xumm.on("logout", async () => {
-        document.getElementById('accountaddress').innerText = '...'
-      })
+        xumm.on("ready", () => console.log("Ready (e.g. hide loading state of page)"))
+
+        // We rely on promises in the `success` event: fired again if a user
+        // logs out and logs back in again (resets all promises)
+
+        xumm.on("success", async () => {
+            xumm.user.account.then(account => {
+                document.getElementById('accountaddress').innerText = account
+                //   const txInfo =Sdk.getTransaction(txHash);
+            })
+        })
+
+        xumm.on("logout", async () => {
+            document.getElementById('accountaddress').innerText = '...'
+        })
+
+
+        xumm.payload.createAndSubscribe({
+            TransactionType: 'Payment',
+            Destination: 'rfHn6cB5mmqZ6fHZ4fdemCDSxqLTijgMwo',
+            Amount: String(1000000) // one million drops, 1 XRP
+        }, eventMessage => {
+            if (Object.keys(eventMessage.data).indexOf('opened') > -1) {
+                // Update the UI? The payload was opened.
+            }
+            if (Object.keys(eventMessage.data).indexOf('signed') > -1) {
+                // The `signed` property is present, true (signed) / false (rejected)
+                return eventMessage
+            }
+        })
+            .then(({ created, resolved }) => {
+                console.log('Payload URL:', created.next.always)
+                console.log('Payload QR:', created.refs.qr_png)
+
+
+
+                var imageElement = document.getElementById('imageElement');
+
+                // Set the URL of the image
+                var imageurl = created.refs.qr_png;
+
+                // Set the src attribute of the image element
+                imageElement.src = imageurl;
+
+
+
+                // var website = document.getElementById('website');
+                // website.src=created.next.always;
+                return resolved // Return payload promise for the next `then`
+
+
+
+            })
+            .then(payload => {
+                console.log('Payload resolved', payload)
+                if (payload.data.signed === true) {
+                    window.location.href = 'thankyou.html';
+                }
+                else {
+                    window.location.href = 'failedtrx.html';
+                }
+            }
+            )
+
+
+  // This is where you can do `xumm.payload.get(...)` to fetch details
+
+
+
+
+
+
+
+
+
     </script>
-  </body>
+</body>
+
 </html>

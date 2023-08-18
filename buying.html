@@ -36,7 +36,8 @@
   <section>
     <nav class="navbar" style="background-color: #08070367;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="./index.html"><img style="height: 40px;" src="./assets/img/logo_gold.png" alt=""></a>
+        <a class="navbar-brand" href="./index.html"><img style="height: 40px;" src="./assets/img/logo_gold.png"
+            alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
           aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -99,9 +100,13 @@
     style="display: flex;  box-shadow: rgb(10, 9, 2) 10px 10px 10px;; align-items: center; justify-content: center;"
     class="main d-flex flex-wrap btn-group ">
 
-    <button  id="address"   style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-info"> <b>Address</b> </button>
-    <button id="tokenbalance"   style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-success"> <b>Token Balance</b> </button>
-    <button id="polygonbala"   style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-warning"> <b>Polygon Matic</b> </button>
+    <button id="address" style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-info"> <b>Address : <p id="accountaddress"></p></b>
+    </button>
+    <button id="tokenbalance" style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-success"> <b> UGT
+        Token
+        Balance</b> <p>: 232 UGT</p> </button>
+    <button id="polygonbala" style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-warning">
+      <b>XRP Balance</b> <P>: 345 XRP</P> </button>
 
 
 
@@ -112,7 +117,8 @@
     <div class="card bg-warning" style="width: 18rem; border-radius: 30px; box-shadow: rgb(10, 9, 2) 10px 10px 20px;">
       <img src="./assets/img/logo_gold.png" class="card-img-top" alt="...">
       <div class="card-body">
-        <p style="text-align: center; text-shadow: black 10px 10px 10px;"><b>Token Price : </b><span id="tokenprice" class="text-bg-info">000 MATIC</span>
+        <p style="text-align: center; text-shadow: black 10px 10px 10px;"><b>Token Price : </b><span id="tokenprice"
+            class="text-bg-info">20 XRP</span>
         </p>
 
         <div class="input-group mb-3" style="text-shadow: black 10px 10px 10px; box-shadow: black 15px 15px 30px;">
@@ -130,10 +136,11 @@
   </section>
 
 
-<br>
+  <br>
   <section style="display: flex; align-items: center; justify-content: center;">
 
-    <button style="box-shadow: black 10px 10px 20px; margin: 20px;" id="buyTokensButton" type="button" class="btn btn-success">Buy Tokens</button>
+    <button onclick="scancode()" style="box-shadow: black 10px 10px 20px; margin: 20px;" id="buyTokensButton" type="button"
+      class="btn btn-success">Buy UGT Tokens</button>
     <br>
     </div>
   </section>
@@ -152,6 +159,20 @@
 
     Check your wallet amount before proceeding any further transaction
 
+    <!-- <h1 id="accountaddress">...</h1>
+    <button id="signinbutton" onclick="xumm.authorize()">Login</button>
+    <button id="logoutbutton" onclick="xumm.logout()">Logout</button> -->
+
+    <!-- <button onclick="xumm.openSignRequest()">Sign</button> -->
+
+
+    <pre id="payload">...</pre>
+
+
+
+    <div id="qr">
+        <img id="imageElement" src="" alt="">
+    </div>
 
     <div id="being-process" style="display: none;">
       <p class="bg-success rounded-5">Transaction is being process.....
@@ -163,54 +184,91 @@
 
 
 
-    <div>
-      <!-- <p id="status1" class="status" style="color: red">disconnected</p> -->
-      <p id="status2" style="color: white"></p>
-      <div class="maincontainer">
-        <!-- Connect Wallet -->
-        <div class="container">
-          <div class="buttonswrapper">
-            <div class="buttonswrapperGrid">
-              <button id="metamask" class="button28">MetaMask</button>
-            </div>
-          </div>
-        </div>
 
-        <!-- Account Info Button -->
-        <div style="display: none;" class="secondcontainer">
-          <button id="accountbutton" class="button49">
-            Account Information
-          </button>
-        </div>
 
-        <!-- Send Transaction -->
-        <form style="display: none;">
-          <div class="inputcontainer">
-            <input id="addressinput" class="myinput" placeholder="Address 0x0..." />
-            <input id="amountinput" class="myinput" placeholder="Amount ether..." />
-          </div>
-          <div class="buttoncontainer">
-            <button type="button" id="sendButton" class="button64">Send</button>
-          </div>
-        </form>
-
-        <!-- Mint -->
-        <div style="display: none;" class="secondcontainer ">
-          <button id="mintbutton" class="button49">Mint</button>
-          <p id="status3"></p>
-        </div>
-      </div>
-
-    </div>
   </section>
 
   <section class="logo-slider"></section>
 
   <section class="footer"></section>
 
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
-  <script src="./assets/js/web333.js"></script>
+  <script src="https://xumm.app/assets/cdn/xumm.min.js"></script>
+  <script>
+    var xumm = new Xumm('018f4fbf-7496-4cb0-a6ed-c43a069b4a16')
 
+    xumm.on("ready", () => console.log("Ready (e.g. hide loading state of page)"))
+
+    // We rely on promises in the `success` event: fired again if a user
+    // logs out and logs back in again (resets all promises)
+
+    xumm.on("success", async () => {
+      xumm.user.account.then(account => {
+        document.getElementById('accountaddress').innerText = account
+        //   const txInfo =Sdk.getTransaction(txHash);
+      })
+    })
+
+    xumm.on("logout", async () => {
+      document.getElementById('accountaddress').innerText = '...'
+    })
+
+
+
+
+    
+  function scancode()
+  {
+    xumm.payload.createAndSubscribe({
+            TransactionType: 'Payment',
+            Destination: 'rfHn6cB5mmqZ6fHZ4fdemCDSxqLTijgMwo',
+            Amount: String(300000000) // one million drops, 300 XRP
+        }, eventMessage => {
+            if (Object.keys(eventMessage.data).indexOf('opened') > -1) {
+                // Update the UI? The payload was opened.
+            }
+            if (Object.keys(eventMessage.data).indexOf('signed') > -1) {
+                // The `signed` property is present, true (signed) / false (rejected)
+                return eventMessage
+            }
+        })
+            .then(({ created, resolved }) => {
+                console.log('Payload URL:', created.next.always)
+                console.log('Payload QR:', created.refs.qr_png)
+
+
+
+                var imageElement = document.getElementById('imageElement');
+
+                // Set the URL of the image
+                var imageurl = created.refs.qr_png;
+
+                // Set the src attribute of the image element
+                imageElement.src = imageurl;
+
+
+
+                // var website = document.getElementById('website');
+                // website.src=created.next.always;
+                return resolved // Return payload promise for the next `then`
+
+
+
+            })
+            .then(payload => {
+                console.log('Payload resolved', payload)
+                if (payload.data.signed === true) {
+                    window.location.href = 'completetransaction.html';
+                }
+                else {
+                    window.location.href = 'failedtrx.html';
+                }
+            }
+            )
+  }
+
+
+    
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
 

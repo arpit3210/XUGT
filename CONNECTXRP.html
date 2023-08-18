@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xumm Wallet Connect</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Vithkuqi:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="./assets/css/invest.css">
+    <style>
+
+    </style>
+
+    <link rel="stylesheet" href="./assets/css/invest.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.0.1-alpha.5/web3.min.js"
+        integrity="sha512-NfffVWpEqu1nq+658gzlJQilRBOvjs+PhEKSjT9gkQXRy9OfxI2TOXr33zS7MgGyTpBa5qtC6mKJkQGd9dN/rw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+</head>
+
+<body>
+    <header>
+        <section>
+            <nav class="navbar" style="background-color: #08070367;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="./index.html"><img style="height: 40px;"
+                            src="./assets/img/logo_gold.png" alt=""></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarScroll">
+                        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+                            style="--bs-scroll-height: 100px;">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://goldy-dao.vercel.app/">UGT DAO</a>
+                            </li>
+                            <!-- <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          Link
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li>
+                              <hr class="dropdown-divider">
+                          </li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      </ul>
+                  </li> -->
+                            <!-- <li class="nav-item">
+                      <a class="nav-link disabled" aria-disabled="true">Link</a>
+                  </li> -->
+                        </ul>
+                        <form class="d-flex" role="search">
+                            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+                            <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                        </form>
+                    </div>
+                </div>
+            </nav>
+
+
+        </section>
+    </header>
+
+    <main>
+
+
+
+        <div class="position-relative m-4">
+            <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0"
+                aria-valuemax="100" style="height: 1px;">
+                <div class="progress-bar" style="width: 0%"></div>
+            </div>
+            <button type="button"
+                class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill"
+                style="width: 2rem; height:2rem;">1</button>
+            <button type="button"
+                class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill"
+                style="width: 2rem; height:2rem;">2</button>
+            <button type="button"
+                class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill"
+                style="width: 2rem; height:2rem;">3</button>
+        </div>
+
+
+        <div id="tittles">
+            <span class="tittle1"><b>Untapped</b></span>
+
+            <span class="tittle2"><b><span style="color: #FC0;">Gold</span> Tokens</b>🪙</span>
+        </div>
+
+
+        <h1 style="text-align: center;"> Address : <h2 style="text-align: center;" id="accountaddress"> Please Connect With XUMM Wallet For Faster Transaction</h2>
+        </h1>
+
+        <section
+            style="display: flex;   flex-direction: row; flex-wrap: wrap-reverse; align-items: center; justify-content: center;"
+            class="main ">
+
+
+            <div id="" class="card text-center  mb-3"
+                style="width: 18rem; border-radius: 30px; overflow: hidden;  margin-top: 50px;  box-shadow: 12px 12px 15px 1px black;  ">
+                <div style="background: rgb(23, 65, 202);
+        background: linear-gradient(90deg, rgb(69, 154, 252) 17%, rgb(5, 21, 241) 54%, rgb(32, 125, 201) 88%);"
+                    class="card-body">
+                    <h5 class="card-title"><img style="height: 10vw;  border-radius: 10px; "
+                            src="./assets/img/xumm_image.png" alt=""></h5>
+                    <p class="card-text"></p>
+                    <a id="signinbutton" onclick="xumm.authorize()" href="#" style="box-shadow: black 10px 10px 15px;"
+                        class="btn btn-info">Connect Xumm Wallet</a>
+                    <a href="https://xumm.app/" style="box-shadow: black 10px 10px 15px; margin-top: 10px;"
+                        class="btn btn-primary">Download Xumm Wallet</a>
+
+                    <div style="margin-top: 10px ; " id="buttonContainer">
+                        <!-- Your other content here -->
+                    </div>
+
+
+                    <button class="btn btn-danger m-4" id="logoutbutton" onclick="xumm.logout()">Logout</button>
+
+                    <!-- <button id="signinbutton" onclick="xumm.authorize()">Login</button> -->
+
+                    <a href="./buysell.html">
+                        <div id="buttonContainer">
+
+
+                            <div class="" id="countdown">
+                            </div>
+                            <!-- Existing content in the container -->
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- 
+<div style="margin: 0 20vw;" >
+  <img style="height: 60vw;" src="./assets/img/WalletImage.png" alt="">
+</div> -->
+
+        </section>
+
+
+        <br>
+
+
+
+
+        <div>
+
+        </div>
+
+        <script>
+
+
+        </script>
+
+        <script src="./assets/js/web333.js"></script>
+        <section class="logo-slider"></section>
+
+    </main>
+
+    <div style="height: 10px;"></div>
+
+    <br class="m-5">
+    <section class="footer"></section>
+
+    <!-- <footer id="footer" style="background-color: black; display: flex; flex-direction: column; align-items: center; justify-content: center; " class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center p-1 ">
+          <p>Invest in cryptocurrency and gold with Untapped Gold Tokens (UGT) 💌. &copy; 2023 UGT. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer> -->
+
+    <script src="https://xumm.app/assets/cdn/xumm.min.js"></script>
+    <script>
+        var xumm = new Xumm('018f4fbf-7496-4cb0-a6ed-c43a069b4a16')
+
+        xumm.on("ready", () => console.log("Ready (e.g. hide loading state of page)"))
+
+        // We rely on promises in the `success` event: fired again if a user
+        // logs out and logs back in again (resets all promises)
+
+        xumm.on("success", async () => {
+            xumm.user.account.then(account => {
+                document.getElementById('accountaddress').innerText = account
+                //   const txInfo =Sdk.getTransaction(txHash);
+
+                if (account) {
+                    // Create a button element
+                    var button = document.createElement("button");
+                    button.textContent = "Buy UGT Token"; // Set the button text
+                    button.style.backgroundColor = "goldenrod";
+                    button.style.borderRadius = "10px";
+
+
+                    // Add an event listener to the button
+                    button.addEventListener("click", function () {
+                        // Your button click action here
+                        window.location.href='buysell.html'
+                        console.log("Button clicked!");
+                    });
+
+                    // Append the button to the container
+                    var buttonContainer = document.getElementById("buttonContainer");
+                    buttonContainer.appendChild(button);
+                } else {
+                    console.log("Not connected to wallet");
+                }
+
+
+
+                //   window.location.href='buysell.html';
+            })
+        })
+
+        xumm.on("logout", async () => {
+            document.getElementById('accountaddress').innerText = '...'
+        })
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

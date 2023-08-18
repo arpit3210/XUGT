@@ -80,9 +80,9 @@
 
     <section style="display: flex; align-items: center; justify-content: center; box-shadow: rgb(10, 9, 2) 10px 10px 10px;" class="main d-flex flex-wrap btn-group ">
 
-        <button  id="address"   style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-info"> <b>Address</b> </button>
-        <button id="tokenbalance"   style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-success"> <b>Token Balance</b> </button>
-        <button id="polygonbala"   style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-warning"> <b>Polygon Matic</b> </button>
+        <button  id="address"   style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-info"> <b>Address: <p id="accountaddress"></p></b> </button>
+        <button id="tokenbalance"   style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-success"> <b>UGT Token Balance</b>  <p>: 234 UGT Token</p> </button>
+        <button id="polygonbala"   style="text-shadow: black 10px 10px 10px;" type="button" class="btn btn-warning"> <b>XRP Balance</b> <p> : 324 XRP</p></button>
 
 
      
@@ -99,7 +99,7 @@
                 <p class="card-text">   </p>
 
                     <p style="text-align: center; margin-bottom: 30px; font-size: large; text-shadow: red 3px 1px 7px ;" class="  "><b>Gold Token</b></p>
-                    <p><b >Token Price : </b><span id="tokenprice" class="text-bg-info">000 MATIC</span></p>
+                    <p><b > UGT Token Price : </b><span id="tokenprice" class="text-bg-info">20 XRP</span></p>
                     <p><b>Token performance last 7 days</b> <span class="text-bg-success text-center">0.35% UP</span></p>
                     <!-- <p id="status2" style="color: white"></p> -->
             </div>
@@ -134,51 +134,7 @@
 
 
 
-<div>
 
-    
-    <div class="maincontainer">
-      <!-- Connect Wallet -->
-      <div class="container">
-        <div class="buttonswrapper">
-          <div class="buttonswrapperGrid">
-            <button id="metamask" class="button28">MetaMask</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Account Info Button -->
-      <div style="display: none;" class="secondcontainer">
-        <button id="accountbutton" class="button49">
-          Account Information
-        </button>
-      </div>
-
-      <!-- Send Transaction -->
-      <form style="display: none;">
-        <div class="inputcontainer">
-          <input
-            id="addressinput"
-            class="myinput"
-            placeholder="Address 0x0..."
-          />
-          <input
-            id="amountinput"
-            class="myinput"
-            placeholder="Amount ether..."
-          />
-        </div>
-        <div class="buttoncontainer">
-          <button type="button" id="sendButton" class="button64">Send</button>
-        </div>
-      </form>
-
-      <!-- Mint -->
-      <div style="display: none;" class="secondcontainer">
-        <button id="mintbutton" class="button49">Mint</button>
-        <p id="status3"></p>
-      </div>
-    </div>
 
 </div>
 
@@ -203,6 +159,27 @@
 
     </script>
 
+<script src="https://xumm.app/assets/cdn/xumm.min.js"></script>
+<script>
+    var xumm = new Xumm('018f4fbf-7496-4cb0-a6ed-c43a069b4a16')
+
+    xumm.on("ready", () => console.log("Ready (e.g. hide loading state of page)"))
+
+    // We rely on promises in the `success` event: fired again if a user
+    // logs out and logs back in again (resets all promises)
+
+    xumm.on("success", async () => {
+        xumm.user.account.then(account => {
+            document.getElementById('accountaddress').innerText = account
+            //   const txInfo =Sdk.getTransaction(txHash);
+        })
+    })
+
+    xumm.on("logout", async () => {
+        document.getElementById('accountaddress').innerText = '...'
+    })
+
+</script>
 
 <footer class="footer" style="background-color: black;">
   <div class="container">
